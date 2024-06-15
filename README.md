@@ -42,7 +42,7 @@ In your build.gradle, at the very top (before `plugins`), add this:
 ```
 buildscript {
     dependencies {
-        classpath 'de.guntram.mcmod:crowdin-translate:1.3+1.17'
+        classpath 'de.guntram.mcmod:crowdin-translate:1.5+1.21'
     }
     repositories {
         maven {
@@ -52,9 +52,6 @@ buildscript {
     }
 }
 ```
-
-(note that you can use this no matter which Minecraft version you're compiling
-for, even if the maven version number says 1.17).
 
 Then, somewhere later (after plugins) add:
 
@@ -94,14 +91,10 @@ repositories {
 	}
 }
 dependencies {
-    modImplementation "de.guntram.mcmod:crowdin-translate:<version>"
-    include "de.guntram.mcmod:crowdin-translate:<version>"
+    modImplementation "de.guntram.mcmod:crowdin-translate:1.5+1.21"
+    include "de.guntram.mcmod:crowdin-translate:1.5+1.21"
 }
 ```
-
-where `version` is currently either `1.3+1.16` or `1.3+1.17`.
-(The `1.3+1.16` version actually works for all versions from 1.15.2 to 20w48a,
-20w49a introduced an incompatible change. 1.3+1.17 works from 1.17 on.)
 
 and this to your ClientModInitializer:
 

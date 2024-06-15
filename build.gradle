@@ -1,14 +1,14 @@
 plugins {
-    id 'fabric-loom' version '0.11.+'
+    id 'fabric-loom' version '1.6.+'
     id 'java-gradle-plugin'
     id 'maven-publish'
 }
 
-sourceCompatibility = 17
-targetCompatibility = 17
+sourceCompatibility = 21
+targetCompatibility = 21
 
 archivesBaseName = "crowdin-translate"
-version = "1.4+1.19.3"
+version = "1.5+1.21"
 
 loom {
     mixin.defaultRefmapName = "crowdin-translate-refmap.json"
@@ -26,10 +26,10 @@ processResources {
 // They are only included to make loom happy.
 // Use old versions intentionally to make this work with a broad range of MCs.
 dependencies {
-    minecraft "com.mojang:minecraft:1.19.3"
-    mappings "net.fabricmc:yarn:1.19.3+build.2:v2"
-    modImplementation "net.fabricmc:fabric-loader:0.14.11"
-    modRuntimeOnly fabricApi.module("fabric-resource-loader-v0", "0.68.1+1.19.3")
+    minecraft "com.mojang:minecraft:1.21"
+    mappings "net.fabricmc:yarn:1.21+build.2"
+    modImplementation "net.fabricmc:fabric-loader:0.15.11"
+    modRuntimeOnly fabricApi.module("fabric-resource-loader-v0", "0.100.1+1.21")
 }
 
 

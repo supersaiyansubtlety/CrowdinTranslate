@@ -5,12 +5,11 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import net.minecraft.resource.InputSupplier;
-import net.minecraft.resource.ResourcePack;
-import net.minecraft.resource.ResourceType;
+
+import net.minecraft.resource.*;
 import net.minecraft.resource.metadata.ResourceMetadataReader;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 
@@ -89,19 +88,19 @@ public class CTResourcePack implements ResourcePack
     }
 
     @Override
+    public ResourcePackInfo getInfo() {
+        return new ResourcePackInfo("CrowdinTranslate internal Resource Pack", Text.of("CrowdinTranslate internal Resource Pack"), ResourcePackSource.BUILTIN, Optional.empty());
+    }
+
+    /*@Override
     public String getName()
     {
         return "CrowdinTranslate internal Resource Pack";
-    }
+    }*/
 
     @Override
     public void close()
     {
-    }
-    
-    @Override
-    public boolean isAlwaysStable() {
-        return true;
     }
 
     private static Identifier fromPath(String path)
@@ -109,6 +108,6 @@ public class CTResourcePack implements ResourcePack
         if (path.startsWith("assets/"))
             path = path.substring("assets/".length());
         String[] split = path.split("/", 2);
-        return new Identifier(split[0], split[1]);
+        return Identifier.of(split[0], split[1]);
     }
 }
