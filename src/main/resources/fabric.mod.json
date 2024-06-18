@@ -3,20 +3,22 @@
     "id": "crowdin-translate",
     "version": "${version}",
     "entrypoints": {
+        "client": [ "de.guntram.mcmod.crowdintranslate.ClientInit" ]
     },
     "custom": {
         "ThanksGoTo": "LambdAurora for letting me use the virtual resource pack loader",
         "modmenu": {
             "badges": [
                 "library"
-	    ]
-	}
+            ]
+        }
     },
     "mixins": [
         "mixins.crowdintranslate.json"
     ],
     "depends": {
-      "fabric-resource-loader-v0": "*"
+        "fabric-resource-loader-v0": "*",
+        "fabricloader": "*"
     },
     "name": "CrowdinTranslate",
     "description": "Downloads translations (xx_xx.json) files from Crowdin",

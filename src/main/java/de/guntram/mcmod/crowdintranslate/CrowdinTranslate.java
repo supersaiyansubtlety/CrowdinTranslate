@@ -1,5 +1,8 @@
 package de.guntram.mcmod.crowdintranslate;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.BufferedReader;
 import java.io.Closeable;
 import java.io.File;
@@ -21,7 +24,9 @@ import java.util.zip.ZipInputStream;
 
 
 public class CrowdinTranslate extends Thread {
-    
+    public static final String NAME = "crowdin-translate";
+    public static final Logger LOGGER = LogManager.getLogger();
+
     private static final Map<String, String> mcCodetoCrowdinCode;
     /* The directory to download to. This is used in the mod; main will overwrite this.  */
     private static String rootDir = "ModTranslations";
@@ -174,11 +179,11 @@ public class CrowdinTranslate extends Thread {
         downloadTranslations(crowdinProjectName, minecraftProjectName, null, verbose);
     }
 
-    public static void downloadTranslations(String crowdinProjectName, String minecraftProjectName, String sourcefileOverride) {
-        downloadTranslations(crowdinProjectName, minecraftProjectName, sourcefileOverride, false);
+    public static void downloadTranslations(String crowdinProjectName, String minecraftProjectName, String sourceFileOverride) {
+        downloadTranslations(crowdinProjectName, minecraftProjectName, sourceFileOverride, false);
     }
 
-    public static void downloadTranslations(String crowdinProjectName, String minecraftProjectName, String sourcefileOverride, boolean verbose) {
+    public static void downloadTranslations(String crowdinProjectName, String minecraftProjectName, String sourceFileOverride, boolean verbose) {
         
         registeredMods.add(minecraftProjectName);
         if (thisIsAMod && ( !downloadsAllowed() || projectDownloadedRecently(minecraftProjectName))) {
@@ -188,8 +193,8 @@ public class CrowdinTranslate extends Thread {
         if (verbose) {
             runner.setVerbose();
         }
-        if (sourcefileOverride != null) {
-            runner.setSourceFileOverride(sourcefileOverride);
+        if (sourceFileOverride != null) {
+            runner.setSourceFileOverride(sourceFileOverride);
         }
         runner.start();
         if (!thisIsAMod) {
