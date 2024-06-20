@@ -13,6 +13,9 @@ import static de.guntram.mcmod.crowdintranslate.CrowdinTranslate.*;
 import static net.fabricmc.loader.api.metadata.CustomValue.CvType.*;
 
 public class ClientInit implements ClientModInitializer {
+    // TODO name logger
+    public static final Logger LOGGER = LogManget.getLogger();
+
     private static String getRequiredString(CustomValue.CvObject object, String key, String modId) {
         return getValue(object, key, STRING, CustomValue::getAsString, modId, true).orElse(null);
     }

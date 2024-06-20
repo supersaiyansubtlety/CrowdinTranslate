@@ -5,8 +5,11 @@ pluginManagement {
             name = 'Fabric'
             url = 'https://maven.fabricmc.net/'
         }
+        mavenCentral()
         gradlePluginPortal()
     }
 }
+
+include 'base', 'plugin', 'mod'
 
 rootProject.name = 'crowdin-translate'

@@ -1,0 +1,44 @@
+plugins {
+    id 'maven-publish'
+    id 'java'
+}
+
+sourceCompatibility = 21
+targetCompatibility = 21
+
+archivesBaseName = "crowdin-translate-base"
+
+dependencies { }
+
+// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
+// if it is present.
+// If you remove this task, sources will not be generated.
+java {
+    withSourcesJar()
+}
+
+jar {
+    from "LICENSE"
+    manifest {
+        attributes(
+            'Main-Class': 'de.guntram.mcmod.crowdintranslate.CrowdinTranslate'
+        )
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            url = "file://tmp/mymavenrepo"
+        }
+    }
+}
+
+// task mypublish(dependsOn: publish, type: Exec) {
+//     commandLine "rsync", "-av", "/tmp/mymavenrepo/", "maven@minecraft.guntram.de:/var/www/html/maven/"
+// }

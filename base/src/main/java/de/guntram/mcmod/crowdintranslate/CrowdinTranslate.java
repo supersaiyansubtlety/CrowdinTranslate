@@ -1,8 +1,5 @@
 package de.guntram.mcmod.crowdintranslate;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import java.io.BufferedReader;
 import java.io.Closeable;
 import java.io.File;
@@ -25,7 +22,6 @@ import java.util.zip.ZipInputStream;
 
 public class CrowdinTranslate extends Thread {
     public static final String NAME = "crowdin-translate";
-    public static final Logger LOGGER = LogManager.getLogger();
 
     private static final Map<String, String> mcCodetoCrowdinCode;
     /* The directory to download to. This is used in the mod; main will overwrite this.  */
