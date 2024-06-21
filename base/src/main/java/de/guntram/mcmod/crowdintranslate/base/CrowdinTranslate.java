@@ -1,4 +1,4 @@
-package de.guntram.mcmod.crowdintranslate;
+package de.guntram.mcmod.crowdintranslate.base;
 
 import java.io.BufferedReader;
 import java.io.Closeable;

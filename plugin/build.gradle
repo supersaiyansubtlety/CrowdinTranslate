@@ -12,7 +12,6 @@ dependencies {
     implementation project(':base')
 }
 
-
 // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
 // if it is present.
 // If you remove this task, sources will not be generated.
@@ -33,7 +32,7 @@ gradlePlugin {
     plugins {
         gradleplugin {
             id = 'de.guntram.mcmod.crowdin-translate'
-            implementationClass = 'de.guntram.mcmod.crowdintranslate.GradlePlugin.CrowdinTranslatePlugin'
+            implementationClass = 'de.guntram.mcmod.crowdintranslate.plugin.CrowdinTranslatePlugin'
         }
     }
 }
@@ -51,6 +50,25 @@ gradlePlugin {
 //     }
 // }
 
-// task mypublish(dependsOn: publish, type: Exec) {
-//     commandLine "rsync", "-av", "/tmp/mymavenrepo/", "maven@minecraft.guntram.de:/var/www/html/maven/"
-// }
+publishing {
+    publications {
+        mavenJavaPlugin(MavenPublication) {
+            from components.java
+        }
+    }
+
+    repositories {
+        repositories {
+            maven {
+                url "https://gitlab.com/api/v4/projects/$gitlab_project_id/packages/maven"
+                credentials(HttpHeaderCredentials) {
+                    name = 'Private-Token'
+                    value = System.getenv("GITLAB_TOKEN")
+                }
+                authentication {
+                    header(HttpHeaderAuthentication)
+                }
+            }
+        }
+    }
+}

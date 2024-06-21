@@ -1,6 +1,6 @@
-package de.guntram.mcmod.crowdintranslate.GradlePlugin;
+package de.guntram.mcmod.crowdintranslate.plugin;
 
-import de.guntram.mcmod.crowdintranslate.CrowdinTranslate;
+import de.guntram.mcmod.crowdintranslate.base.CrowdinTranslate;
 import org.gradle.api.DefaultTask;
 import org.gradle.api.tasks.TaskAction;
 

@@ -3,7 +3,9 @@
     "id": "crowdin-translate",
     "version": "${version}",
     "entrypoints": {
-        "client": [ "de.guntram.mcmod.crowdintranslate.ClientInit" ]
+        "client": [
+            "de.guntram.mcmod.crowdintranslate.mod.ClientInit"
+        ]
     },
     "custom": {
         "ThanksGoTo": "LambdAurora for letting me use the virtual resource pack loader",
@@ -22,6 +24,5 @@
     },
     "name": "CrowdinTranslate",
     "description": "Downloads translations (xx_xx.json) files from Crowdin",
-    "icon": "icon.png",
     "authors": [ "Giselbaer" ]
 }

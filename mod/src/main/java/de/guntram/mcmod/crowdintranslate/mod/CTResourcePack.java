@@ -1,4 +1,4 @@
-package de.guntram.mcmod.crowdintranslate;
+package de.guntram.mcmod.crowdintranslate.mod;
 
 import com.mojang.logging.LogUtils;
 import java.io.File;
@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import de.guntram.mcmod.crowdintranslate.base.CrowdinTranslate;
 import net.minecraft.resource.*;
 import net.minecraft.resource.metadata.ResourceMetadataReader;
 import net.minecraft.text.Text;

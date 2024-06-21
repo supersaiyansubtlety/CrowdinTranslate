@@ -1,6 +1,6 @@
 {
     "required": true,
-    "package": "de.guntram.mcmod.crowdintranslate.mixins",
+    "package": "de.guntram.mcmod.crowdintranslate.mod.mixins",
     "refmap": "crowdin-translate-refmap.json",
     "minVersion": "0.6",
     "client": [

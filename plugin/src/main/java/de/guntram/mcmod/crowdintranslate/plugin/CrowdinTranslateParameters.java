@@ -1,4 +1,4 @@
-package de.guntram.mcmod.crowdintranslate.GradlePlugin;
+package de.guntram.mcmod.crowdintranslate.plugin;
 
 public class CrowdinTranslateParameters {
     String crowdinProjectName;

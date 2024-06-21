@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package de.guntram.mcmod.crowdintranslate.GradlePlugin;
+package de.guntram.mcmod.crowdintranslate.plugin;
 
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;

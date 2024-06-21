@@ -1,6 +1,6 @@
-package de.guntram.mcmod.crowdintranslate.mixins;
+package de.guntram.mcmod.crowdintranslate.mod.mixins;
 
-import de.guntram.mcmod.crowdintranslate.CTResourcePack;
+import de.guntram.mcmod.crowdintranslate.mod.CTResourcePack;
 
 import java.util.ArrayList;
 import java.util.List;
