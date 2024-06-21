@@ -21,14 +21,9 @@ java {
     withSourcesJar()
 }
 
-// jar {
-//     from "LICENSE"
-//     manifest {
-//         attributes(
-//             'Main-Class': 'de.guntram.mcmod.crowdintranslate.CrowdinTranslate'
-//         )
-//     }
-// }
+jar {
+    from "LICENSE"
+}
 
 gradlePlugin {
     plugins {
@@ -39,22 +34,10 @@ gradlePlugin {
     }
 }
 
-// publishing {
-//     publications {
-//         mavenJava(MavenPublication) {
-//             from components.java
-//         }
-//     }
-//     repositories {
-//         maven {
-//             url = "file://tmp/mymavenrepo"
-//         }
-//     }
-// }
-
 publishing {
     publications {
         mavenJavaPlugin(MavenPublication) {
+            artifactId base.archivesName.get()
             from components.java
         }
     }
@@ -62,7 +45,7 @@ publishing {
     repositories {
         repositories {
             maven {
-                url "https://gitlab.com/api/v4/projects/$gitlab_project_id/packages/maven"
+                url gitlab_maven_url
                 credentials(HttpHeaderCredentials) {
                     name = 'Private-Token'
                     value = System.getenv("GITLAB_TOKEN")

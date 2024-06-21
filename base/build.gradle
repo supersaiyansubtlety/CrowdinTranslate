@@ -30,8 +30,24 @@ jar {
 
 publishing {
     publications {
-        mavenJava(MavenPublication) {
+        mavenJavaBase(MavenPublication) {
+            artifactId base.archivesName.get()
             from components.java
+        }
+    }
+
+    repositories {
+        repositories {
+            maven {
+                url gitlab_maven_url
+                credentials(HttpHeaderCredentials) {
+                    name = 'Private-Token'
+                    value = System.getenv("GITLAB_TOKEN")
+                }
+                authentication {
+                    header(HttpHeaderAuthentication)
+                }
+            }
         }
     }
 }

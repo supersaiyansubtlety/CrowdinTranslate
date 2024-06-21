@@ -10,6 +10,14 @@ base {
     archivesName = 'crowdin-translate'
 }
 
+loom {
+    runs {
+        client {
+            ideConfigGenerated = true
+        }
+    }
+}
+
 processResources {
     inputs.property "version", project.version
 
@@ -42,43 +50,20 @@ java {
 
 jar {
     from "LICENSE"
-    // manifest {
-    //     attributes(
-    //         'Main-Class': 'de.guntram.mcmod.crowdintranslate.CrowdinTranslate'
-    //     )
-    // }
 }
-
-// publishing {
-//     publications {
-//         mavenJava(MavenPublication) {
-//             from components.java
-//         }
-//     }
-//     // repositories {
-//     //     maven {
-//     //         url = "file://tmp/mymavenrepo"
-//     //     }
-//     // }
-// }
 
 publishing {
     publications {
         mavenJavaMod(MavenPublication) {
-            // add all the jars that should be included when publishing to maven
-            artifact(remapJar) {
-                builtBy remapJar
-            }
-            artifact(sourcesJar) {
-                builtBy remapSourcesJar
-            }
+            artifactId base.archivesName.get()
+            from components.java
         }
     }
 
     repositories {
         repositories {
             maven {
-                url "https://gitlab.com/api/v4/projects/$gitlab_project_id/packages/maven"
+                url gitlab_maven_url
                 credentials(HttpHeaderCredentials) {
                     name = 'Private-Token'
                     value = System.getenv("GITLAB_TOKEN")
