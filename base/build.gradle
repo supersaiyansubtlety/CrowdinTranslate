@@ -6,7 +6,9 @@ plugins {
 sourceCompatibility = 21
 targetCompatibility = 21
 
-archivesBaseName = "crowdin-translate-base"
+base {
+    archivesName = 'crowdin-translate-base'
+}
 
 dependencies { }
 
@@ -21,7 +23,7 @@ jar {
     from "LICENSE"
     manifest {
         attributes(
-            'Main-Class': 'de.guntram.mcmod.crowdintranslate.CrowdinTranslate'
+            'Main-Class': 'de.guntram.mcmod.crowdintranslate.base.CrowdinTranslate'
         )
     }
 }

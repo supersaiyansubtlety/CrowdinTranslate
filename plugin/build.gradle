@@ -6,7 +6,9 @@ plugins {
 sourceCompatibility = 21
 targetCompatibility = 21
 
-archivesBaseName = "crowdin-translate-plugin"
+base {
+    archivesName = 'crowdin-translate-plugin'
+}
 
 dependencies {
     implementation project(':base')

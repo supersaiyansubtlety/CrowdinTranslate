@@ -6,7 +6,9 @@ plugins {
 sourceCompatibility = 21
 targetCompatibility = 21
 
-archivesBaseName = "crowdin-translate"
+base {
+    archivesName = 'crowdin-translate'
+}
 
 processResources {
     inputs.property "version", project.version
@@ -21,6 +23,9 @@ processResources {
 // Use old versions intentionally to make this work with a broad range of MCs.
 dependencies {
     include(implementation project(':base'))
+
+    // include project(':base')
+    // modImplementation project(':base')
 
     minecraft "com.mojang:minecraft:1.21"
     mappings "net.fabricmc:yarn:1.21+build.2"
