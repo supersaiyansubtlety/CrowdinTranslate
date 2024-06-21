@@ -4,6 +4,8 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.fabricmc.loader.api.metadata.CustomValue;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Optional;
 import java.util.function.Function;
@@ -13,8 +15,7 @@ import static de.guntram.mcmod.crowdintranslate.CrowdinTranslate.*;
 import static net.fabricmc.loader.api.metadata.CustomValue.CvType.*;
 
 public class ClientInit implements ClientModInitializer {
-    // TODO name logger
-    public static final Logger LOGGER = LogManget.getLogger();
+    public static final Logger LOGGER = LogManager.getLogger("crowdin-translate");
 
     private static String getRequiredString(CustomValue.CvObject object, String key, String modId) {
         return getValue(object, key, STRING, CustomValue::getAsString, modId, true).orElse(null);
