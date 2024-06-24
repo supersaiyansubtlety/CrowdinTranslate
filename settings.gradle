@@ -12,4 +12,4 @@ pluginManagement {
 
 include 'base', 'plugin', 'mod'
 
-rootProject.name = 'crowdin-translate'
+rootProject.name = 'crowdin_translate_sss'

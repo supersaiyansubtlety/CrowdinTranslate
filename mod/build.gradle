@@ -7,7 +7,7 @@ sourceCompatibility = 21
 targetCompatibility = 21
 
 base {
-    archivesName = 'crowdin-translate'
+    archivesName = "${rootProject.name}_mod"
 }
 
 loom {
@@ -15,14 +15,6 @@ loom {
         client {
             ideConfigGenerated = true
         }
-    }
-}
-
-processResources {
-    inputs.property "version", project.version
-
-    filesMatching("fabric.mod.json") {
-        expand "version": project.version
     }
 }
 
@@ -39,6 +31,14 @@ dependencies {
     mappings "net.fabricmc:yarn:1.21+build.2"
     modImplementation "net.fabricmc:fabric-loader:0.15.11"
     modRuntimeOnly fabricApi.module("fabric-resource-loader-v0", "0.100.1+1.21")
+}
+
+processResources {
+    inputs.property "version", project.version
+
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version
+    }
 }
 
 // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task

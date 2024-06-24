@@ -1,6 +1,6 @@
 {
     "schemaVersion": 1,
-    "id": "crowdin-translate",
+    "id": "crowdin_translate_sss_mod",
     "version": "${version}",
     "entrypoints": {
         "client": [
@@ -16,13 +16,13 @@
         }
     },
     "mixins": [
-        "mixins.crowdintranslate.json"
+        "mixins.crowdin_translate.json"
     ],
     "depends": {
         "fabric-resource-loader-v0": "*",
         "fabricloader": "*"
     },
-    "name": "CrowdinTranslate",
+    "name": "Crowdin Translate",
     "description": "Downloads translations (xx_xx.json) files from Crowdin",
-    "authors": [ "Giselbaer" ]
+    "authors": [ "Giselbaer", "supersaiyansubtlety" ]
 }

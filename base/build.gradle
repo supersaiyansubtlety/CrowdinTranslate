@@ -7,10 +7,18 @@ sourceCompatibility = 21
 targetCompatibility = 21
 
 base {
-    archivesName = 'crowdin-translate-base'
+    archivesName = "${rootProject.name}_base"
 }
 
 dependencies { }
+
+processResources {
+    inputs.property "version", project.version
+
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version
+    }
+}
 
 // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
 // if it is present.
@@ -23,7 +31,7 @@ jar {
     from "LICENSE"
     manifest {
         attributes(
-            'Main-Class': 'de.guntram.mcmod.crowdintranslate.base.CrowdinTranslate'
+            'Main-Class': "${group}.${rootProject.name}.base.CrowdinTranslate"
         )
     }
 }

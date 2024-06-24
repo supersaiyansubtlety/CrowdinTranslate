@@ -1,4 +1,4 @@
-package de.guntram.mcmod.crowdintranslate.mod;
+package net.sssubtlety.crowdin_translate_sss.mod;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
@@ -10,8 +10,8 @@ import org.apache.logging.log4j.Logger;
 import java.util.Optional;
 import java.util.function.Function;
 
-import static de.guntram.mcmod.crowdintranslate.mod.ClientInit.Keys.*;
-import static de.guntram.mcmod.crowdintranslate.base.CrowdinTranslate.*;
+import static net.sssubtlety.crowdin_translate_sss.mod.ClientInit.Keys.*;
+import static net.sssubtlety.crowdin_translate_sss.base.CrowdinTranslate.*;
 import static net.fabricmc.loader.api.metadata.CustomValue.CvType.*;
 
 public class ClientInit implements ClientModInitializer {

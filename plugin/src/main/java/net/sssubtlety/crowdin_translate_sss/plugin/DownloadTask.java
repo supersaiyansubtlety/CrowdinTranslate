@@ -1,13 +1,13 @@
-package de.guntram.mcmod.crowdintranslate.plugin;
+package net.sssubtlety.crowdin_translate_sss.plugin;
 
-import de.guntram.mcmod.crowdintranslate.base.CrowdinTranslate;
+import net.sssubtlety.crowdin_translate_sss.base.CrowdinTranslate;
 import org.gradle.api.DefaultTask;
 import org.gradle.api.tasks.TaskAction;
 
 public class DownloadTask extends DefaultTask {
     @TaskAction
     public void action() {
-        CrowdinTranslateParameters parms = CrowdinTranslatePlugin.parameters;
+        CrowdinTranslateExtension parms = CrowdinTranslatePlugin.parameters;
         if (parms.getCrowdinProjectName() == null) {
             System.err.println("No crowdin project name given, nothing downloaded");
             return;

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package de.guntram.mcmod.crowdintranslate.plugin;
+package net.sssubtlety.crowdin_translate_sss.plugin;
 
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
@@ -14,13 +14,13 @@ import org.gradle.api.Project;
  */
 public class CrowdinTranslatePlugin implements Plugin<Project> {
 
-    public static CrowdinTranslateParameters parameters;
+    public static CrowdinTranslateExtension parameters;
 
     @Override
     public void apply(Project project) {
         
         parameters = project.getExtensions()
-                .create("crowdintranslate", CrowdinTranslateParameters.class);
+                .create("crowdinTranslateSss", CrowdinTranslateExtension.class);
         project.getTasks().create("downloadTranslations", DownloadTask.class);
     }
 }

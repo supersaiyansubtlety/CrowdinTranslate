@@ -1,8 +1,11 @@
-CrowdinTranslate - a library to add CrowdIn Internationalization to your mods
+CrowdinTranslate - a library to add Crowdin Internationalization to your mods
 =============================================================================
 
+This is a continuation of [CrowdinTranslate](https://github.com/gbl/CrowdinTranslate) by [GBL](https://github.com/gbl)
+for Minecraft versions 1.21 and above.
+
 CrowdinTranslate is a library that's intended to make Internationalization as 
-easy as possible in your mods. The jar file is, at the same time:
+easy as possible in your mods. The project provides:
 
 - A main program which you can use to easily download translations from
 CrowdIn, and distribute these translations to the correct file names in the
@@ -10,15 +13,10 @@ correct folder
 
 - A gradle plugin to automate getting translations from your build process
 
-- A Fabric library mod which you can use in your own mods which downloads
+- A Fabric library mod which you can be an optional dependency or bundled in your own mods which downloads
 updated translations, and makes them available in a resource pack, to your
 users, so you don't have to publish a new version of your mod, and people
-don't need to redownload, when new translations appear
-
-- A Java library that you can just shade in from your Forge mods, with the same
-functionality as for the Fabric mod (yet to be implemented ...)
-
-
+don't need to re-download, when new translations appear
 
 ## Getting started
 
@@ -28,7 +26,7 @@ info below.
 
 ## Manual usage:
 
-Run `java -jar crowdintranslate-<version>.jar <projectname>` from the main
+Run `java -jar crowdin_translate_sss_base-<version>.jar <projectname>` from the main
 mod directory to download translations and distribute them
 to `src/main/resources/assets/<projectname>/lang/`.
 
@@ -37,29 +35,31 @@ If you weren't able to use your modid for your crowdin project, run
 
 ## Automatic usage:
 
-In your build.gradle, at the very top (before `plugins`), add this:
+In your `settings.gradle`, add this:
 
 ```
-buildscript {
-    dependencies {
-        classpath 'de.guntram.mcmod:crowdin-translate:1.5+1.21'
-    }
+pluginManagement {
     repositories {
         maven {
-            name = 'CrowdinTranslate source'
-            url = "https://minecraft.guntram.de/maven/"
+            name = "Crowdin Translate SSS"
+            url = "https://gitlab.com/api/v4/projects/59105494/packages/maven"
         }
     }
 }
 ```
 
-Then, somewhere later (after plugins) add:
+Then in `build.gradle` add:
 
 ```
-apply plugin: 'de.guntram.mcmod.crowdin-translate'
-crowdintranslate.crowdinProjectName = '<modid>'
-crowdintranslate.minecraftProjectName = '<modid>'
-crowdintranslate.verbose = false
+plugins {
+    id 'net.sssubtlety.crowdin-translate-sss' version '<version>'
+}
+
+crowdinTranslateSss {
+    crowdinProjectName = '<modid>'
+    minecraftProjectName = '<modid>'
+    verbose = false
+}
 ```
 
 You can omit the minecraftProjectName if the ids are the same, and you can
@@ -73,7 +73,7 @@ to the end of your build.gradle:
 
 ```
 build {
-        dependsOn downloadTranslations
+    dependsOn downloadTranslations
 }
 ```
 
@@ -82,21 +82,54 @@ build {
 That way your users can get new translations automatically, without
 you re-publishing your mod, and them having to re-download it.
 
-Add this to your build.gradle:
+Add this to your `build.gradle`:
 
-```
+```groovy
 repositories {
 	maven {
-		url = "https://minecraft.guntram.de/maven/"
+		url = "https://gitlab.com/api/v4/projects/59105494/packages/maven"
 	}
 }
 dependencies {
-    modImplementation "de.guntram.mcmod:crowdin-translate:1.5+1.21"
-    include "de.guntram.mcmod:crowdin-translate:1.5+1.21"
+    include(modImplementation("net.sssubtlety:crowdin_translate_sss_mod:<version>"))
 }
 ```
 
-and this to your ClientModInitializer:
+Crowdin Translate SSS adds a new way to use it at runtime: a custom `fabric.mod.json` field.  
+This is the preferred method because you needn't interact with Crowdin Translate SSS through java at all,
+so it can be an optional dependency. You can still bundle it if you prefer.
+
+The custom FMJ field has several forms:
+
+- use your mod id for Crowdin and Minecraft project names
+```json
+"custom": {
+    "crowdin-translate": true
+}
+```
+
+- use the string value for Crowdin and Minecraft project names
+```json
+"custom": {
+    "crowdin-translate": "some-mod"
+}
+```
+
+- specify the params for `CrowdinTranslate#downloadTranslations(String crowdinProjectName, String minecraftProjectName,
+String sourceFileOverride, boolean verbose)`; `sourceFileOverride`, and `verbose` are optional
+```json
+"custom": {
+    "crowdin-translate": {
+        "crowdinProjectName": "some-other-mod",
+        "minecraftProjectName": "some_other_mod",
+        "sourceFileOverride": "thing.json",
+        "verbose": true
+    }
+}
+```
+
+You can instead use Crowdin Translate SSS in your `ClientModInitializer` like before
+(don't this if you're already using the custom FMJ field):
 
 ```
 CrowdinTranslate.downloadTranslations("modid");
@@ -136,21 +169,19 @@ you can have one single crowdin project that has them all, and have file names
 Assuming your crowdin project name is `allmymods`,
 adjust the above use cases like this:
 
-* manual usage:
+- manual usage:
 ```
 java -jar crowdintranslate-<version>.jar allmymods foo foo
 java -jar crowdintranslate-<version>.jar allmymods bar bar
 java -jar crowdintranslate-<version>.jar allmymods baz thisisnotbaz
 ```
 
-* usage in gradle: add a 'jsonSourceName' parameter
-
+- usage in gradle: add a 'jsonSourceName' parameter
 ```
 crowdintranslate.jsonSourceName = 'thisisnotbaz'
 ```
 
-* usage in your `ClientModInitializer`: use the 3 argument call:
-
+- usage in your `ClientModInitializer`: use the 3 argument call:
 ```
 CrowdinTranslate.downloadTranslations("allmymods", "baz", "thisisnotbaz");
 ```

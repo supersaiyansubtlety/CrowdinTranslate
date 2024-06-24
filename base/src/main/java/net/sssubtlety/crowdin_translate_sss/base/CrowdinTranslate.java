@@ -1,4 +1,4 @@
-package de.guntram.mcmod.crowdintranslate.base;
+package net.sssubtlety.crowdin_translate_sss.base;
 
 import java.io.BufferedReader;
 import java.io.Closeable;
@@ -52,7 +52,7 @@ public class CrowdinTranslate extends Thread {
         add("da_dk", "da");
         add("de_at", "de-AT,de");
         add("de_ch", "de-CH,de");
-        add("de_de", "de");
+        add("de_de", "net");
         add("el_gr", "el");
         add("en_au", "en-AU,en-GB,en-US");
         add("en_ca", "en-CA,en-GB,en-US");

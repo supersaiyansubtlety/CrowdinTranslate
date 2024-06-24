@@ -1,6 +1,6 @@
-package de.guntram.mcmod.crowdintranslate.plugin;
+package net.sssubtlety.crowdin_translate_sss.plugin;
 
-public class CrowdinTranslateParameters {
+public class CrowdinTranslateExtension {
     String crowdinProjectName;
     String minecraftProjectName;
     String jsonSourceName;

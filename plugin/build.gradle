@@ -7,7 +7,7 @@ sourceCompatibility = 21
 targetCompatibility = 21
 
 base {
-    archivesName = 'crowdin-translate-plugin'
+    archivesName = '${rootProject.name}_plugin'
 }
 
 dependencies {
@@ -28,8 +28,8 @@ jar {
 gradlePlugin {
     plugins {
         gradleplugin {
-            id = 'de.guntram.mcmod.crowdin-translate'
-            implementationClass = 'de.guntram.mcmod.crowdintranslate.plugin.CrowdinTranslatePlugin'
+            id = "${group}.crowdin-translate-sss"
+            implementationClass = "${group}.${rootProject.name}.plugin.CrowdinTranslatePlugin"
         }
     }
 }
