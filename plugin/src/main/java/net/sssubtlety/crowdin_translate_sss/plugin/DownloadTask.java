@@ -7,7 +7,7 @@ import org.gradle.api.tasks.TaskAction;
 public class DownloadTask extends DefaultTask {
     @TaskAction
     public void action() {
-        CrowdinTranslateExtension parms = CrowdinTranslatePlugin.parameters;
+        CrowdinTranslateSssExtension parms = CrowdinTranslateSssPlugin.parameters;
         if (parms.getCrowdinProjectName() == null) {
             System.err.println("No crowdin project name given, nothing downloaded");
             return;

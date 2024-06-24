@@ -12,15 +12,15 @@ import org.gradle.api.Project;
  *
  * @author gbl
  */
-public class CrowdinTranslatePlugin implements Plugin<Project> {
+public class CrowdinTranslateSssPlugin implements Plugin<Project> {
 
-    public static CrowdinTranslateExtension parameters;
+    public static CrowdinTranslateSssExtension parameters;
 
     @Override
     public void apply(Project project) {
         
         parameters = project.getExtensions()
-                .create("crowdinTranslateSss", CrowdinTranslateExtension.class);
+                .create("crowdinTranslateSss", CrowdinTranslateSssExtension.class);
         project.getTasks().create("downloadTranslations", DownloadTask.class);
     }
 }

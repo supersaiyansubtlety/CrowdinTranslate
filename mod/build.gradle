@@ -1,7 +1,29 @@
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "com.modrinth.minotaur:Minotaur:2.4.3"
+        classpath "gradle.plugin.com.matthewprenger:CurseGradle:1.4.0"
+    }
+}
+
+import java.util.regex.Matcher
+import java.util.regex.Pattern
+
 plugins {
     id 'fabric-loom' version '1.6.+'
     id 'maven-publish'
 }
+
+project.ext {
+    minecraft_version_list = project.minecraft_versions.split(",")
+}
+
+apply plugin: com.modrinth.minotaur.Minotaur
+apply plugin: com.matthewprenger.cursegradle.CurseGradlePlugin
 
 sourceCompatibility = 21
 targetCompatibility = 21
@@ -73,5 +95,171 @@ publishing {
                 }
             }
         }
+    }
+}
+
+ext.readFileFirstLine = { String fileName ->
+    def firstLine = null
+    file(fileName).withReader { reader ->
+        def line
+        if ((line = reader.readLine()) != null)
+            firstLine = line
+    }
+
+    return firstLine
+}
+
+ext.getRecentChanges = { int versionsToRead ->
+    def newVersionLineRegex = "^- (\\d+\\.\\d+(?:\\.\\d+)?(?:-[\\d.a-z]+)?)" + "( \\(\\d{1,2} [A-Z][a-z]{2}\\.? 20\\d\\d\\):)" + "(.*)"
+    Pattern newVersionLinePattern = Pattern.compile(newVersionLineRegex)
+
+    def changelogFile = rootProject.file("CHANGELOG.md")
+    def changes = ""
+
+    changelogFile.withReader { reader ->
+        String line
+        def firstLine = true
+        while ((line = reader.readLine()) != null) {
+            if (firstLine) {
+                firstLine = false
+                if (line.find(newVersionLineRegex)) {
+                    Matcher lineMatcher = newVersionLinePattern.matcher(line)
+                    lineMatcher.find()
+                    // if (!lineMatcher.group(1).startsWith(project.version))
+                    //     throw new Exception("Version on first line of changelog doesn't match project version. ")
+                    def trimmedLine = lineMatcher.group(3)
+                    if (!trimmedLine.isEmpty()) changes += trimmedLine + "\n"
+                } else throw new Exception("First line of changelog is not new version line. ")
+            } else {
+                if (line.matches(newVersionLineRegex)) {
+                    if (versionsToRead > 1) {
+                        versionsToRead--
+
+                        Matcher lineMatcher = newVersionLinePattern.matcher(line)
+                        lineMatcher.find()
+                        changes += "\nFrom " + (lineMatcher.group(1) + ":" + lineMatcher.group(3)) + "\n"
+                    } else break
+                } else changes += line + "\n"
+            }
+        }
+    }
+
+    changes += "\nA cumulative changelog can be found [here](https://gitlab.com/supersaiyansubtlety/crowdin_translate_sss/-/blob/master/CHANGELOG.md)"
+
+    return changes
+}
+
+ext.getVersionType_ = { ->
+    def trailingNumberRegex = "-?\\d+\$"
+    def alphaRegex = "-(?:a|alpha)" + trailingNumberRegex
+    def betaRegex = "-(?:b|beta)" + trailingNumberRegex
+
+    Pattern alphaPattern = Pattern.compile(alphaRegex)
+    Pattern betaPattern = Pattern.compile(betaRegex)
+
+    if (alphaPattern.matcher(version).find()) return "alpha"
+    else if (betaPattern.matcher(version).find()) return "beta"
+    else return "release"
+}
+
+curseforge {
+    def curseApiKey = readFileFirstLine("..\\..\\CURSE_API_KEY.secret")
+    if (curseApiKey != null) {
+        apiKey = curseApiKey
+        project {
+            id = project.curseforge_id
+            releaseType = getVersionType_()
+            project.minecraft_version_list.each { String game_version -> addGameVersion game_version }
+            addGameVersion "Fabric"
+            addGameVersion "Quilt"
+
+            changelogType = "markdown"
+
+            def versionsToRead
+            if (project.hasProperty('numVersions')) versionsToRead = Integer.parseInt(project.numVersions)
+            else versionsToRead = 1
+
+            changelog = getRecentChanges(versionsToRead)
+
+            if (project.hasProperty("curse_required") || project.hasProperty("curse_optional")) {
+                relations {
+                    if (project.hasProperty("curse_required"))
+                        for (String req : project.property("curse_required").split(","))
+                            requiredDependency req
+                    if (project.hasProperty("curse_optional"))
+                        for (String req : project.property("curse_optional").split(","))
+                            optionalDependency req
+                }
+            }
+
+            mainArtifact(remapJar.archivePath) { }
+
+            afterEvaluate {
+                uploadTask.dependsOn("build")
+            }
+        }
+    }
+    options {
+        debug = project.hasProperty("debug_publishing") && project.property("debug_publishing") == "true"
+        forgeGradleIntegration = false
+        javaVersionAutoDetect = false
+    }
+}
+
+modrinth {
+    token = readFileFirstLine("..\\..\\MODRINTH_TOKEN.secret")
+    projectId = project.modrinth_id
+    versionNumber = project.version
+    versionType = getVersionType_()
+    uploadFile = remapJar
+    if (project.hasProperty('numVersions')) changelog = getRecentChanges(Integer.parseInt(project.numVersions))
+    else changelog = getRecentChanges(1)
+    loaders = [ "fabric", "quilt" ]
+    gameVersions = Arrays.asList(project.ext.minecraft_version_list)
+    dependencies {
+        if (project.hasProperty("modrinth_required"))
+            for (String req : project.property("modrinth_required").split(","))
+                required.project req
+        if (project.hasProperty("modrinth_optional"))
+            for (String req : project.property("modrinth_optional").split(","))
+                optional.project req
+    }
+    debugMode = project.hasProperty("debug_publishing") && project.property("debug_publishing") == "true"
+}
+
+task publishMod {
+    dependsOn = ["modrinth", "curseforge"]
+}
+
+task printRecentChanges {
+    doFirst {
+        if (project.hasProperty('numVersions')) println getRecentChanges(Integer.parseInt(numVersions))
+        else println getRecentChanges(1)
+    }
+}
+
+task printDependencies {
+    doFirst {
+        println "dependencies:"
+
+        println "*modrinth_required:"
+        if (project.hasProperty("modrinth_required"))
+            for (String req : project.property("modrinth_required").split(","))
+                println "**" + req
+
+        println "*curse_required:"
+        if (project.hasProperty("curse_required"))
+            for (String req : project.property("curse_required").split(","))
+                println "**" + req
+
+        println "*modrinth_optional:"
+        if (project.hasProperty("modrinth_optional"))
+            for (String req : project.property("modrinth_optional").split(","))
+                println "**" + req
+
+        println "*curse_optional:"
+        if (project.hasProperty("curse_optional"))
+            for (String req : project.property("curse_optional").split(","))
+                println "**" + req
     }
 }

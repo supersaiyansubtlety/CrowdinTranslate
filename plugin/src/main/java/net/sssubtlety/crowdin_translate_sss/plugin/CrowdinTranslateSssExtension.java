@@ -1,6 +1,6 @@
 package net.sssubtlety.crowdin_translate_sss.plugin;
 
-public class CrowdinTranslateExtension {
+public class CrowdinTranslateSssExtension {
     String crowdinProjectName;
     String minecraftProjectName;
     String jsonSourceName;

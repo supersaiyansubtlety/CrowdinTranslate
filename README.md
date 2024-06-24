@@ -1,10 +1,10 @@
-CrowdinTranslate - a library to add Crowdin Internationalization to your mods
+Crowdin Translate SSS - a library to add Crowdin Internationalization to your mods
 =============================================================================
 
 This is a continuation of [CrowdinTranslate](https://github.com/gbl/CrowdinTranslate) by [GBL](https://github.com/gbl)
 for Minecraft versions 1.21 and above.
 
-CrowdinTranslate is a library that's intended to make Internationalization as 
+Crowdin Translate SSS is a library that's intended to make Internationalization as 
 easy as possible in your mods. The project provides:
 
 - A main program which you can use to easily download translations from
@@ -23,6 +23,11 @@ don't need to re-download, when new translations appear
 Create a CrowdIn project, (if possible, use the same project name as your mod id).
 Upload your en_us.json, get it translated, build the project. More detailed 
 info below.
+
+You can view available versions in the
+[package registry](https://gitlab.com/supersaiyansubtlety-group/minecraft-mods/crowdin_translate_sss/-/packages).
+
+If you're having trouble you can contact me on [discord](https://discord.gg/xABmPngXAH).
 
 ## Manual usage:
 
@@ -91,7 +96,9 @@ repositories {
 	}
 }
 dependencies {
-    include(modImplementation("net.sssubtlety:crowdin_translate_sss_mod:<version>"))
+    modImplementation "net.sssubtlety:crowdin_translate_sss_mod:<version>"
+    // include the line below ONLY if you want to bundle the library
+    include "net.sssubtlety:crowdin_translate_sss_mod:<version>"
 }
 ```
 
