@@ -104,14 +104,14 @@ The custom FMJ field has several forms:
 - use your mod id for Crowdin and Minecraft project names
 ```json
 "custom": {
-    "crowdin-translate": true
+    "crowdin_translate_sss": true
 }
 ```
 
 - use the string value for Crowdin and Minecraft project names
 ```json
 "custom": {
-    "crowdin-translate": "some-mod"
+    "crowdin_translate_sss": "some-mod"
 }
 ```
 
@@ -119,7 +119,7 @@ The custom FMJ field has several forms:
 String sourceFileOverride, boolean verbose)`; `sourceFileOverride`, and `verbose` are optional
 ```json
 "custom": {
-    "crowdin-translate": {
+    "crowdin_translate_sss": {
         "crowdinProjectName": "some-other-mod",
         "minecraftProjectName": "some_other_mod",
         "sourceFileOverride": "thing.json",
@@ -132,7 +132,7 @@ You can instead use Crowdin Translate SSS in your `ClientModInitializer` like be
 (don't this if you're already using the custom FMJ field):
 
 ```
-CrowdinTranslate.downloadTranslations("modid");
+CrowdinTranslateSss.downloadTranslations("modid");
 ```
 
 for example
@@ -143,7 +143,7 @@ public class MyModClass implements ClientModInitializer
     static public final String MODID="modid";
     @Override
     public void onInitializeClient() {
-        CrowdinTranslate.downloadTranslations(MODID);
+        CrowdinTranslateSss.downloadTranslations(MODID);
     }
 }
 ```
@@ -152,7 +152,7 @@ If your CrowdIn project name does not match your Minecraft Mod ID, you need
 to use the two parameter form with CrowdIn name first, and mod id second:
 
 ```
-CrowdinTranslate.downloadTranslations("projectname", "modid");
+CrowdinTranslateSss.downloadTranslations("projectname", "modid");
 ```
 
 This will download the translations from
@@ -171,17 +171,17 @@ adjust the above use cases like this:
 
 - manual usage:
 ```
-java -jar crowdintranslate-<version>.jar allmymods foo foo
-java -jar crowdintranslate-<version>.jar allmymods bar bar
-java -jar crowdintranslate-<version>.jar allmymods baz thisisnotbaz
+java -jar crowdin_translate_sss_base-<version>.jar allmymods foo foo
+java -jar crowdin_translate_sss_base-<version>.jar allmymods bar bar
+java -jar crowdin_translate_sss_base-<version>.jar allmymods baz thisisnotbaz
 ```
 
 - usage in gradle: add a 'jsonSourceName' parameter
 ```
-crowdintranslate.jsonSourceName = 'thisisnotbaz'
+crowdinTranslateSss.jsonSourceName = 'thisisnotbaz'
 ```
 
 - usage in your `ClientModInitializer`: use the 3 argument call:
 ```
-CrowdinTranslate.downloadTranslations("allmymods", "baz", "thisisnotbaz");
+CrowdinTranslateSss.downloadTranslations("allmymods", "baz", "thisisnotbaz");
 ```

@@ -20,8 +20,8 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 
-public class CrowdinTranslate extends Thread {
-    public static final String NAME = "crowdin-translate";
+public class CrowdinTranslateSss extends Thread {
+    public static final String NAME = "crowdin_translate_sss";
 
     private static final Map<String, String> mcCodetoCrowdinCode;
     /* The directory to download to. This is used in the mod; main will overwrite this.  */
@@ -185,7 +185,7 @@ public class CrowdinTranslate extends Thread {
         if (thisIsAMod && ( !downloadsAllowed() || projectDownloadedRecently(minecraftProjectName))) {
             return;
         }
-        CrowdinTranslate runner = new CrowdinTranslate(crowdinProjectName, minecraftProjectName);
+        CrowdinTranslateSss runner = new CrowdinTranslateSss(crowdinProjectName, minecraftProjectName);
         if (verbose) {
             runner.setVerbose();
         }
@@ -259,7 +259,7 @@ public class CrowdinTranslate extends Thread {
     private Optional<String> sourceFileOverride = Optional.empty();
     private boolean verbose;
     
-    private CrowdinTranslate(String crowdinProjectName, String minecraftProjectName) {
+    private CrowdinTranslateSss(String crowdinProjectName, String minecraftProjectName) {
         this.crowdinProjectName = crowdinProjectName;
         this.minecraftProjectName = minecraftProjectName;
         verbose = false;

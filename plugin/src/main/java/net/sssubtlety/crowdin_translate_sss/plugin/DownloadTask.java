@@ -1,6 +1,6 @@
 package net.sssubtlety.crowdin_translate_sss.plugin;
 
-import net.sssubtlety.crowdin_translate_sss.base.CrowdinTranslate;
+import net.sssubtlety.crowdin_translate_sss.base.CrowdinTranslateSss;
 import org.gradle.api.DefaultTask;
 import org.gradle.api.tasks.TaskAction;
 
@@ -23,7 +23,7 @@ public class DownloadTask extends DefaultTask {
         args[argc++] = (mpn == null ? cpn : mpn);
         args[argc++] = parms.getJsonSourceName();
 
-        CrowdinTranslate.main(args);
+        CrowdinTranslateSss.main(args);
         this.setDidWork(true);
     }
 }

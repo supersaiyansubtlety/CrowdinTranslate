@@ -11,11 +11,11 @@ import java.util.Optional;
 import java.util.function.Function;
 
 import static net.sssubtlety.crowdin_translate_sss.mod.ClientInit.Keys.*;
-import static net.sssubtlety.crowdin_translate_sss.base.CrowdinTranslate.*;
+import static net.sssubtlety.crowdin_translate_sss.base.CrowdinTranslateSss.*;
 import static net.fabricmc.loader.api.metadata.CustomValue.CvType.*;
 
 public class ClientInit implements ClientModInitializer {
-    public static final Logger LOGGER = LogManager.getLogger("crowdin-translate");
+    public static final Logger LOGGER = LogManager.getLogger("crowdin_translate_sss");
 
     private static String getRequiredString(CustomValue.CvObject object, String key, String modId) {
         return getValue(object, key, STRING, CustomValue::getAsString, modId, true).orElse(null);

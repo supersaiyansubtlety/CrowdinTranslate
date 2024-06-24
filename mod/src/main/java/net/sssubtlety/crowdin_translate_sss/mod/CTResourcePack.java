@@ -7,7 +7,7 @@ import java.io.InputStream;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import net.sssubtlety.crowdin_translate_sss.base.CrowdinTranslate;
+import net.sssubtlety.crowdin_translate_sss.base.CrowdinTranslateSss;
 import net.minecraft.resource.*;
 import net.minecraft.resource.metadata.ResourceMetadataReader;
 import net.minecraft.text.Text;
@@ -24,7 +24,7 @@ public class CTResourcePack implements ResourcePack
     private static final Logger LOGGER = LogUtils.getLogger();
     
     public CTResourcePack() {
-        for (String s: CrowdinTranslate.registeredMods()) {
+        for (String s: CrowdinTranslateSss.registeredMods()) {
             put(s+"/lang");
         }
         put("crowdintranslate/lang");
@@ -42,7 +42,7 @@ public class CTResourcePack implements ResourcePack
     @Override
     public InputSupplier<InputStream> openRoot(String ... fileName)
     {
-        File file = new File(CrowdinTranslate.getRootDir(), fileName[0]);
+        File file = new File(CrowdinTranslateSss.getRootDir(), fileName[0]);
         if (file.exists()) {
             return InputSupplier.create(file.toPath());
         } else {
@@ -58,7 +58,7 @@ public class CTResourcePack implements ResourcePack
 
     @Override
     public void findResources(ResourceType type, String namespace, String prefix, ResourcePack.ResultConsumer consumer) {
-        String start = CrowdinTranslate.getRootDir()+"/assets/" + namespace + "/" + prefix;
+        String start = CrowdinTranslateSss.getRootDir()+"/assets/" + namespace + "/" + prefix;
         String[] files = new File(start).list();
         //LOGGER.info("finding resources for {} {}", namespace, prefix);
         if (files == null || files.length == 0) {
