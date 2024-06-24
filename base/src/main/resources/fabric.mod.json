@@ -1,0 +1,8 @@
+{
+    "schemaVersion": 1,
+    "id": "crowdin-translate-base",
+    "version": "${version}",
+    "name": "CrowdinTranslate base",
+    "description": "Downloads translations (xx_xx.json) files from Crowdin",
+    "authors": [ "Giselbaer" ]
+}
