@@ -29,7 +29,7 @@ gradlePlugin {
     plugins {
         gradleplugin {
             id = "${group}.crowdin-translate-sss"
-            implementationClass = "${group}.${rootProject.name}.plugin.CrowdinTranslatePlugin"
+            implementationClass = "${group}.${rootProject.name}.plugin.CrowdinTranslateSssPlugin"
         }
     }
 }
