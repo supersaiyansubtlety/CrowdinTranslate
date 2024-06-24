@@ -1,4 +1,4 @@
-Crowdin Translate SSS - a library to add Crowdin Internationalization to your mods
+Since [CrowdinTranslate](https://github.com/gbl/CrowdinTranslate) has been archived, I'm maintaining [my fork](https://gitlab.com/supersaiyansubtlety-group/minecraft-mods/crowdin_translate_sss) over on GitLab
 =============================================================================
 
 This is a continuation of [CrowdinTranslate](https://github.com/gbl/CrowdinTranslate) by [GBL](https://github.com/gbl)
