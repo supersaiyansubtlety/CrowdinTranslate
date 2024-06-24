@@ -4,7 +4,7 @@
     "version": "${version}",
     "entrypoints": {
         "client": [
-            "de.guntram.mcmod.crowdintranslate.mod.ClientInit"
+            "net.sssubtlety.crowdin_translate_sss.mod.ClientInit"
         ]
     },
     "custom": {
