@@ -1,7 +1,6 @@
 {
     "required": true,
     "package": "net.sssubtlety.crowdin_translate_sss.mod.mixins",
-    "refmap": "crowdin-translate-refmap.json",
     "minVersion": "0.6",
     "client": [
       "ReloadableResourceManagerImplMixin"

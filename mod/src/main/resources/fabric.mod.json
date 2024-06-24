@@ -16,7 +16,7 @@
         }
     },
     "mixins": [
-        "mixins.crowdin_translate.json"
+        "mixins.crowdin_translate_sss.json"
     ],
     "depends": {
         "fabric-resource-loader-v0": "*",
