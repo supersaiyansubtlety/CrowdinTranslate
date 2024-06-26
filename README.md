@@ -25,7 +25,7 @@ Upload your en_us.json, get it translated, build the project. More detailed
 info below.
 
 You can view available versions in the
-[package registry](https://gitlab.com/supersaiyansubtlety-group/minecraft-mods/crowdin_translate_sss/-/packages).
+[package registry](https://gitlab.com/supersaiyansubtlety-group/minecraft-mods/sss_translate/-/packages).
 
 If you're having trouble you can contact me on [discord](https://discord.gg/xABmPngXAH).
 
